@@ -63,7 +63,7 @@ class GuildFeature(Feature):
         ctx: commands.Context,
         channel: typing.Union[discord.TextChannel, discord.VoiceChannel],
         *targets: typing.Union[discord.Member, discord.Role],
-    ):  # pylint: disable=too-many-locals, too-many-branches, too-many-statements
+    ):    # pylint: disable=too-many-locals, too-many-branches, too-many-statements
         """
         Calculates the source of granted or rejected permissions.
 
@@ -89,7 +89,7 @@ class GuildFeature(Feature):
 
         if member_ids and channel.guild.owner_id in member_ids:
             # Is owner, has all perms
-            for key in dict(discord.Permissions.all()).keys():
+            for key in dict(discord.Permissions.all()):
                 permissions[key] = (
                     True,
                     f"<@{channel.guild.owner_id}> owns the server",
@@ -116,7 +116,7 @@ class GuildFeature(Feature):
                 if role.permissions.administrator:
                     is_administrator = True
 
-                    for key in dict(discord.Permissions.all()).keys():
+                    for key in dict(discord.Permissions.all()):
                         if not permissions[key][0]:
                             permissions[key] = (
                                 True,

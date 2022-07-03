@@ -56,7 +56,7 @@ class RootCommand(Feature):
         self.embed_color = os.environ.get("JISHAKU_EMBED_COLOR", 0)
 
     @Feature.Command(name="jishaku", aliases=["jsk"], invoke_without_command=True, ignore_extra=False)
-    async def jsk(self, ctx: commands.Context):  # pylint: disable=too-many-branches
+    async def jsk(self, ctx: commands.Context):    # pylint: disable=too-many-branches
         """
         The Jishaku debug and diagnostic commands.
 
@@ -98,8 +98,13 @@ class RootCommand(Feature):
 
                     summary.append("")  # blank line
             except psutil.AccessDenied:
-                summary.append("psutil is installed, but this process does not have high enough access rights " "to query process information.")
-                summary.append("")  # blank line
+                summary.extend(
+                    (
+                        "psutil is installed, but this process does not have high enough access rights "
+                        "to query process information.",
+                        "",
+                    )
+                )
 
         cache_summary = f"{len(self.bot.guilds)} guild(s) and {len(self.bot.users)} user(s)"
 

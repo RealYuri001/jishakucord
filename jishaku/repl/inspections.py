@@ -54,8 +54,7 @@ def all_inspections(obj):
     """
 
     for name, callback in INSPECTIONS:
-        result = callback(obj)
-        if result:
+        if result := callback(obj):
             yield name, result
 
 
@@ -65,9 +64,7 @@ def class_name(obj):
     """
 
     name = obj.__name__
-    module = getattr(obj, "__module__")
-
-    if module:
+    if module := getattr(obj, "__module__"):
         name = f"{module}.{name}"
     return name
 
@@ -115,7 +112,7 @@ def subclass_inspection(obj):
     else:
         return
 
-    output = ", ".join(class_name(x) for x in subclasses[0:5])
+    output = ", ".join(class_name(x) for x in subclasses[:5])
 
     if len(subclasses) > 5:
         output += ", ..."
@@ -133,7 +130,7 @@ def file_loc_inspection(obj):
     file_loc = inspect.getfile(obj)
     cwd = os.getcwd()
     if file_loc.startswith(cwd):
-        file_loc = "." + file_loc[len(cwd) :]
+        file_loc = f".{file_loc[len(cwd) :]}"
     return file_loc
 
 

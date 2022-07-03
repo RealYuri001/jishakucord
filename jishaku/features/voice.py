@@ -36,11 +36,10 @@ class VoiceFeature(Feature):
             return await ctx.send("Voice cannot be used because PyNaCl is not loaded.")
 
         if not discord.opus.is_loaded():
-            if hasattr(discord.opus, "_load_default"):
-                if not discord.opus._load_default():  # pylint: disable=protected-access,no-member
-                    return await ctx.send("Voice cannot be used because libopus is not loaded and attempting to load the default failed.")
-            else:
+            if not hasattr(discord.opus, "_load_default"):
                 return await ctx.send("Voice cannot be used because libopus is not loaded.")
+            if not discord.opus._load_default():  # pylint: disable=protected-access,no-member
+                return await ctx.send("Voice cannot be used because libopus is not loaded and attempting to load the default failed.")
 
     @staticmethod
     async def connected_check(ctx: commands.Context):
@@ -119,9 +118,7 @@ class VoiceFeature(Feature):
             else:
                 return await ctx.send("Member has no voice channel.")
 
-        voice = ctx.guild.voice_client
-
-        if voice:
+        if voice := ctx.guild.voice_client:
             await voice.move_to(destination)
         else:
             await destination.connect(reconnect=True)

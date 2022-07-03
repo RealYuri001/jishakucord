@@ -45,9 +45,7 @@ class PythonFeature(Feature):
         otherwise it is always a new Scope.
         """
 
-        if self.retain:
-            return self._scope
-        return Scope()
+        return self._scope if self.retain else Scope()
 
     @Feature.Command(parent="jsk", name="retain")
     async def jsk_retain(self, ctx: commands.Context, *, toggle: bool = None):
@@ -155,7 +153,7 @@ class PythonFeature(Feature):
         name="py_inspect",
         aliases=["pyi", "python_inspect", "pythoninspect"],
     )
-    async def jsk_python_inspect(self, ctx: commands.Context, *, argument: codeblock_converter):  # pylint: disable=too-many-locals
+    async def jsk_python_inspect(self, ctx: commands.Context, *, argument: codeblock_converter):    # pylint: disable=too-many-locals
         """
         Evaluation of Python code with inspect information.
         """
@@ -175,13 +173,11 @@ class PythonFeature(Feature):
                         header = repr(result).replace("``", "`\u200b`").replace(self.bot.http.token, "[token omitted]")
 
                         if len(header) > 485:
-                            header = header[0:482] + "..."
+                            header = header[:482] + "..."
 
                         lines = [f"=== {header} ===", ""]
 
-                        for name, res in all_inspections(result):
-                            lines.append(f"{name:16.16} :: {res}")
-
+                        lines.extend(f"{name:16.16} :: {res}" for name, res in all_inspections(result))
                         text = "\n".join(lines)
 
                         if use_file_check(ctx, len(text)):  # File "full content" preview limit

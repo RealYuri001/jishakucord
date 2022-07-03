@@ -206,9 +206,7 @@ class PaginatorInterface(ui.View):  # pylint: disable=too-many-instance-attribut
         Is this interface closed?
         """
 
-        if not self.task:
-            return False
-        return self.task.done()
+        return self.task.done() if self.task else False
 
     async def send_lock_delayed(self):
         """

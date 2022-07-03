@@ -31,7 +31,7 @@ class Flag:
     default: typing.Callable = None
     override: typing.Any = None
 
-    def resolve(self, flags):  # pylint: disable=too-many-return-statements
+    def resolve(self, flags):    # pylint: disable=too-many-return-statements
         """
         Resolve this flag. Only for internal use.
         """
@@ -40,18 +40,14 @@ class Flag:
         if self.override is not None:
             return self.override
 
-        # Resolve from environment
-        env_value = os.getenv(f"JISHAKU_{self.name}", "").strip()
-
-        if env_value:
-            if self.flag_type is bool:
-                if env_value.lower() in ENABLED_SYMBOLS:
-                    return True
-                if env_value.lower() in DISABLED_SYMBOLS:
-                    return False
-            else:
+        if env_value := os.getenv(f"JISHAKU_{self.name}", "").strip():
+            if self.flag_type is not bool:
                 return self.flag_type(env_value)
 
+            if env_value.lower() in ENABLED_SYMBOLS:
+                return True
+            if env_value.lower() in DISABLED_SYMBOLS:
+                return False
         # Fallback if no resolvation from environment
         if self.default is not None:
             if inspect.isfunction(self.default):

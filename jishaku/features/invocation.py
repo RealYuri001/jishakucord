@@ -169,11 +169,8 @@ class InvocationFeature(Feature):
 
         filename = "source.py"
 
-        try:
+        with contextlib.suppress(TypeError, OSError):
             filename = pathlib.Path(inspect.getfile(command.callback)).name
-        except (TypeError, OSError):
-            pass
-
         # getsourcelines for some reason returns WITH line endings
         source_text = "".join(source_lines)
 

@@ -41,7 +41,7 @@ class ShellFeature(Feature):
         async with ReplResponseReactor(ctx.message):
             with self.submit(ctx):
                 with ShellReader(argument.content) as reader:
-                    prefix = "```" + reader.highlight
+                    prefix = f"```{reader.highlight}"
 
                     paginator = WrappedPaginator(prefix=prefix, max_size=1975)
                     paginator.add_line(f"{reader.ps1} {argument.content}\n")
@@ -64,7 +64,7 @@ class ShellFeature(Feature):
 
         return await ctx.invoke(
             self.jsk_shell,
-            argument=Codeblock(argument.language, "git " + argument.content),
+            argument=Codeblock(argument.language, f"git {argument.content}"),
         )
 
     @Feature.Command(parent="jsk", name="pip")
@@ -75,5 +75,5 @@ class ShellFeature(Feature):
 
         return await ctx.invoke(
             self.jsk_shell,
-            argument=Codeblock(argument.language, "pip " + argument.content),
+            argument=Codeblock(argument.language, f"pip {argument.content}"),
         )

@@ -25,6 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+
 import os
 import pathlib
 import re
@@ -46,7 +47,7 @@ with open(ROOT / "jishaku" / "meta.py", "r", encoding="utf-8") as f:
     if not VERSION_MATCH:
         raise RuntimeError("version is not set or could not be located")
 
-    VERSION = ".".join([VERSION_MATCH.group(1), VERSION_MATCH.group(2), VERSION_MATCH.group(3)])
+    VERSION = ".".join([VERSION_MATCH[1], VERSION_MATCH[2], VERSION_MATCH[3]])
 
 EXTRA_REQUIRES = {}
 
@@ -129,7 +130,7 @@ setup(
     install_requires=REQUIREMENTS,
     python_requires=">=3.8.0",
     extras_require=EXTRA_REQUIRES,
-    download_url="https://github.com/Sengolda/jishkucord/archive/{}.tar.gz".format(VERSION),
+    download_url=f"https://github.com/Sengolda/jishkucord/archive/{VERSION}.tar.gz",
     keywords="jishkucord, py-cord, discord, cog, repl, extension",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
