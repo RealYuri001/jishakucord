@@ -17,7 +17,7 @@ It can be used to perform manual administrative actions as the bot, or to test J
 
 import logging
 import sys
-import typing
+from typing import Iterable
 
 import click
 import discord
@@ -31,7 +31,7 @@ LOG_STREAM.setFormatter(LOG_FORMAT)
 @click.command()
 @click.argument("intents", nargs=-1)
 @click.argument("token")
-def entrypoint(intents: typing.Iterable[str], token: str):
+def entrypoint(intents: Iterable[str], token: str):
     """
     Entrypoint accessible through `python -m jishaku <TOKEN>`
     """

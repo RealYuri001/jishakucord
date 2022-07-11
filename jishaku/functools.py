@@ -13,10 +13,9 @@ Function-related tools for Jishaku.
 
 import asyncio
 import functools
-import typing
+from typing import Callable
 
-
-def executor_function(sync_function: typing.Callable):
+def executor_function(sync_function: Callable):
     """A decorator that wraps a sync function in an executor, changing it into an async function.
 
     This allows processing functions to be wrapped and used immediately as an async function.

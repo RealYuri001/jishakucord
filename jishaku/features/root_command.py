@@ -14,7 +14,7 @@ The jishaku root command.
 import math
 import os
 import sys
-import typing
+from typing import Union
 
 import discord
 from discord.ext import commands
@@ -190,7 +190,7 @@ class RootCommand(Feature):
         return await interface.send_to(ctx)
 
     @Feature.Command(parent="jsk", name="cancel")
-    async def jsk_cancel(self, ctx: commands.Context, *, index: typing.Union[int, str]):
+    async def jsk_cancel(self, ctx: commands.Context, *, index: Union[int, str]):
         """
         Cancels a task with the given index.
 

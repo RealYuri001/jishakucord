@@ -11,7 +11,7 @@ The jishaku guild-related commands.
 
 """
 
-import typing
+from typing import Union, Dict, Tuple
 
 import discord
 from discord.ext import commands
@@ -61,8 +61,8 @@ class GuildFeature(Feature):
     async def jsk_permtrace(
         self,
         ctx: commands.Context,
-        channel: typing.Union[discord.TextChannel, discord.VoiceChannel],
-        *targets: typing.Union[discord.Member, discord.Role],
+        channel: Union[discord.TextChannel, discord.VoiceChannel],
+        *targets: Union[discord.Member, discord.Role],
     ):  # pylint: disable=too-many-locals, too-many-branches, too-many-statements
         """
         Calculates the source of granted or rejected permissions.
@@ -85,7 +85,7 @@ class GuildFeature(Feature):
 
         # Dictionary to store the current permission state and reason
         # Stores <perm name>: (<perm allowed>, <reason>)
-        permissions: typing.Dict[str, typing.Tuple[bool, str]] = {}
+        permissions: Dict[str, Tuple[bool, str]] = {}
 
         if member_ids and channel.guild.owner_id in member_ids:
             # Is owner, has all perms

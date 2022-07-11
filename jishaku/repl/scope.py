@@ -12,7 +12,7 @@ The Scope class and functions relating to it.
 """
 
 import inspect
-import typing
+from typing import Optional
 
 
 class Scope:
@@ -122,7 +122,7 @@ class Scope:
         return self
 
 
-def get_parent_scope_from_var(name, global_ok=False, skip_frames=0) -> typing.Optional[Scope]:
+def get_parent_scope_from_var(name, global_ok=False, skip_frames=0) -> Optional[Scope]:
     """
     Iterates up the frame stack looking for a frame-scope containing the given variable name.
 

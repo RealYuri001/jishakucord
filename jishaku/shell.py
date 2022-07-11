@@ -76,7 +76,7 @@ class ShellReader:
         self.queue = asyncio.Queue(maxsize=250)
 
     @property
-    def closed(self):
+    def closed(self) -> bool:
         """
         Are both tasks done, indicating there is no more to read?
         """
@@ -90,7 +90,7 @@ class ShellReader:
 
         return await self.loop.run_in_executor(None, *args, **kwargs)
 
-    def make_reader_task(self, stream, callback):
+    def make_reader_task(self, stream, callback) -> asyncio.Task:
         """
         Create a reader executor task for a stream.
         """
@@ -98,7 +98,7 @@ class ShellReader:
         return self.loop.create_task(self.executor_wrapper(background_reader, stream, self.loop, callback))
 
     @staticmethod
-    def clean_bytes(line):
+    def clean_bytes(line: bytes) -> str:
         """
         Cleans a byte sequence of shell directives and decodes it.
         """

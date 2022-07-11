@@ -12,7 +12,7 @@ Constants and functions related to syntax highlighting with highlight.js
 """
 
 import re
-import typing
+from typing import Tuple, Optional
 
 __all__ = ("get_language", "guess_file_traits", "LANGUAGES")
 
@@ -354,7 +354,7 @@ def get_language(query: str) -> str:
 ENCODING_REGEX = re.compile(br"coding[=:]\s*([-\w.]+)")
 
 
-def guess_file_traits(data: bytes) -> typing.Tuple[str, str, typing.Optional[str]]:
+def guess_file_traits(data: bytes) -> Tuple[str, str, Optional[str]]:
     """
     Given the content of a file, attempts to guess its encoding and language.
 

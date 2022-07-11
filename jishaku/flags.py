@@ -14,7 +14,7 @@ The Jishaku cog base, which contains most of the actual functionality of Jishaku
 import dataclasses
 import inspect
 import os
-import typing
+from typing import Callable, Any
 
 ENABLED_SYMBOLS = ("true", "t", "yes", "y", "on", "1")
 DISABLED_SYMBOLS = ("false", "f", "no", "n", "off", "0")
@@ -28,8 +28,8 @@ class Flag:
 
     name: str
     flag_type: type
-    default: typing.Callable = None
-    override: typing.Any = None
+    default: Callable = None
+    override: Any = None
 
     def resolve(self, flags):  # pylint: disable=too-many-return-statements
         """

@@ -14,7 +14,7 @@ Functions and classes for handling exceptions.
 import asyncio
 import subprocess
 import traceback
-import typing
+from typing import Optional, Union
 
 import discord
 from discord.ext import commands
@@ -67,7 +67,7 @@ async def do_after_sleep(delay: float, coro, *args, **kwargs):
     return await coro(*args, **kwargs)
 
 
-async def attempt_add_reaction(msg: discord.Message, reaction: typing.Union[str, discord.Emoji]) -> typing.Optional[discord.Reaction]:
+async def attempt_add_reaction(msg: discord.Message, reaction: Union[str, discord.Emoji]) -> Optional[discord.Reaction]:
     """
     Try to add a reaction to a message, ignoring it if it fails for any reason.
 
@@ -91,7 +91,7 @@ class ReactionProcedureTimer:  # pylint: disable=too-few-public-methods
     def __init__(
         self,
         message: discord.Message,
-        loop: typing.Optional[asyncio.BaseEventLoop] = None,
+        loop: Optional[asyncio.BaseEventLoop] = None,
     ):
         self.message = message
         self.loop = loop or asyncio.get_event_loop()

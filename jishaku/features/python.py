@@ -12,6 +12,7 @@ The jishaku Python evaluation/execution commands.
 """
 
 import io
+from typing import Union
 
 import discord
 from discord.ext import commands
@@ -37,7 +38,7 @@ class PythonFeature(Feature):
         self.last_result = None
 
     @property
-    def scope(self):
+    def scope(self) -> Scope:
         """
         Gets a scope for use in REPL.
 
@@ -77,7 +78,7 @@ class PythonFeature(Feature):
         self.retain = False
         return await ctx.send("Variable retention is OFF. Future REPL sessions will dispose their scope when done.")
 
-    async def jsk_python_result_handling(self, ctx: commands.Context, result):  # pylint: disable=too-many-return-statements
+    async def jsk_python_result_handling(self, ctx: commands.Context, result) -> Union[discord.Message, PaginatorInterface]:  # pylint: disable=too-many-return-statements
         """
         Determines what is done with a result when it comes out of jsk py.
         This allows you to override how this is done without having to rewrite the command itself.

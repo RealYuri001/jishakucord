@@ -14,8 +14,8 @@ The base Feature class that serves as the superclass of all feature components.
 import asyncio
 import collections
 import contextlib
-import typing
 from datetime import datetime, timezone
+from typing import Union, Callable
 
 from discord.ext import commands
 
@@ -40,14 +40,14 @@ class Feature(commands.Cog):
         """
 
         def __init__(self, parent: str = None, standalone_ok: bool = False, **kwargs):
-            self.parent: typing.Union[str, Feature.Command] = parent
+            self.parent: Union[str, Feature.Command] = parent
             self.standalone_ok = standalone_ok
             self.kwargs = kwargs
             self.callback = None
             self.depth: int = 0
             self.has_children: bool = False
 
-        def __call__(self, callback: typing.Callable):
+        def __call__(self, callback: Callable):
             self.callback = callback
             return self
 

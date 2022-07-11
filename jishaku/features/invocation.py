@@ -17,7 +17,7 @@ import io
 import pathlib
 import re
 import time
-import typing
+from typing import Union
 
 import discord
 from discord.ext import commands
@@ -59,9 +59,9 @@ class InvocationFeature(Feature):
     """
 
     if hasattr(discord, "Thread"):
-        OVERRIDE_SIGNATURE = typing.Union[SlimUserConverter, discord.TextChannel, discord.Thread]  # pylint: disable=no-member
+        OVERRIDE_SIGNATURE = Union[SlimUserConverter, discord.TextChannel, discord.Thread]  # pylint: disable=no-member
     else:
-        OVERRIDE_SIGNATURE = typing.Union[SlimUserConverter, discord.TextChannel]
+        OVERRIDE_SIGNATURE = Union[SlimUserConverter, discord.TextChannel]
 
     @Feature.Command(
         parent="jsk",
